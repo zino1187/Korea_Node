@@ -1,7 +1,7 @@
 //웹서버를 구축하여 이미지를 다운로드 해갈수 있도록 제공...
 var http = require("http");
 var static = require("serve-static");//정적 자원 요청 전담처리 미들웨어...
-
+var fs = require("fs");
 
 //우리가 사용중인 http 모듈은 너무 기본 모듈인지라, 개발자가 모든 걸 
 //손수 구현해야 한다.심지어 정적자원(html, css, js, image, xml 등등)에 요청을
@@ -18,6 +18,14 @@ var app = express(); //익스프레스 객체 생성
 //console.log(__dirname); //현재 실행중인 파일의 물리적 경로 반환
 
 app.use(static(__dirname+"/static"));//사용하고픈 미들웨어명
+
+fs.readdir(__dirname+"/static/images", function(error, files){
+    console.log("파일수는 ", files.length);
+    for(var i=0;i<files.length;i++){
+        console.log("파일명은 ", files[i]);
+    }
+});
+
 var server = http.createServer(app); //express 서버로 가동!!
 
 server.listen(7777, function(){
