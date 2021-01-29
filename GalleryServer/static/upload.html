@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(function(){
+    $("#bt").click(function(){
+        upload();
+    });
+    
+    $("#bt_async").click(function(){
+        uploadAsync();
+    });
+
+});
+
+//동기로 업로드 
+function upload(){
+    $("form").attr({
+        action:"/gallery",
+        method:"post",
+        enctype:"multipart/form-data"
+    });
+    $("form").submit();
+}
+
+//비동기로 업로드 
+function uploadAsync(){
+
+}
+</script>    
+</head>
+<body>
+    <form> 
+        <input type="text" name="title" placeholder="제목">   
+        <input type="file" name="photo">
+        <button type="button" id="bt">동기 업로드</button>    
+        <button type="button" id="bt_async">비동기 업로드</button>    
+    </form>        
+</body>
+</html>
