@@ -41,24 +41,31 @@ var upload=multer({
     })
 }); 
 
-app.use(upload.single("photo"));
+
 app.use(static(__dirname+"/static"));//사용하고픈 미들웨어명
 var server = http.createServer(app); //express 서버로 가동!!
 
 //등록
-app.post("/gallery", function(request, response){
-    console.log("전송된 파라미터는 ", request.body);
-    console.log("전송된 파일은 ", request.files);
+app.post("/gallery", upload.single("photo"), function(request, response){
+    //console.log("전송된 파라미터는 ", request.body);
+    //console.log("전송된 파일은 ", file.originalname);
     var con = mysql.createConnection(conStr);
 
-    console.log("title is ", request.body.title);
+    console.log("업로드된 파일정보 ",request.file);
 
+    var title = request.body.title;
+    var filename = request.file.filename;
     
     var sql="insert into gallery(title, filename) values(?,?)";
-    con.query(sql, [값, 값], function(error, results, fields){
-
+    con.query(sql, [title, filename], function(error, results, fields){
+        if(error){
+            response.writeHead(500, {"Content-Type":"text/html;charset=utf-8"});
+            response.end("업로드 실패");
+        }else{
+            response.writeHead(200, {"Content-Type":"text/html;charset=utf-8"});
+            response.end("<script>alert('업로드성공');location.href='/upload.html';</script>");
+        }        
     });
-    
 
 });
 
