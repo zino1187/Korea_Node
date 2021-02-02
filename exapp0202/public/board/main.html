@@ -66,7 +66,9 @@ var webSocket; //이 html을 배포한 서버와 연결된 소켓 얻기!!
 class TableContent extends React.Component{
 
     getItem(board_id){
-        getDetail(board_id);
+        return function(){//무조건 호출방지를 위한 익명함수 및 리턴...
+            getDetail(board_id);
+        }
     }
 
     render(){
@@ -76,7 +78,7 @@ class TableContent extends React.Component{
             row.push(
                 <tr>
                     <td>{i}</td>
-                    <td onClick={getItem(board.board_id)}>{board.title}</td>
+                    <td onClick={this.getItem(board.board_id)}>{board.title}</td>
                     <td>{board.writer}</td>
                     <td>{board.regdate}</td>
                     <td>{board.hit}</td>

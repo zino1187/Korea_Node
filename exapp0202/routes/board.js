@@ -26,8 +26,8 @@ router.get('/', function(request, response, next) {
       response.end(JSON.stringify(result));
     }
   });
-
 });
+
 
 //등록
 router.post("/", function(request, response, next){
@@ -60,6 +60,13 @@ router.post("/", function(request, response, next){
     }
   });
 })
+
+router.get("/:board_id", function(request, response, next){
+  console.log("넘겨받은 아이디는 ", request.params.board_id);
+  
+
+}); //url임에도 불구하고, 파라미터로 추출가능..
+
 
 function brodCasting(msg){
   for(var i=0;i<socketArray.length;i++){
