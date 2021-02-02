@@ -30,10 +30,12 @@ function upload(){
 //비동기로 업로드 
 function uploadAsync(){
     //비동기전송은 form객체를 필요로 한다 
+    /*
     var formData = new FormData();
     formData.append("title", "아무거나");
     formData.append("photo", $("input[type='file']")[0].files[0]);
-
+    */
+   var formData = $("#form1").serialize();
     $.ajax({
         url:"/gallery",
         type:"POST",

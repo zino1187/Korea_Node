@@ -33,19 +33,27 @@ app.use('/', mainRouter);
 app.use('/member', memberRouter);  // http://~~~~:7777/member
 app.use('/board', boardRouter);  // http://~~~~:7777/board
 
+
+
 //웹소켓 요청 처리 
 var wserver = new WebSocket.Server({port:9999});
+var socketArray=[]; //접속자마다 대응되는 소켓을 배열에 모아놓자
 
 //접속자 감지!!
 wserver.on("connection", function(socket){
   console.log("접속자 감지!!");
+  socketArray.push(socket);
 
   //클라이언트에게 메시지 전송하기!!
   //socket.send("접속을 축하드립니다.");
   //클라이언트가 보낸 메시지 청취 이벤트 
   socket.on("message", function(data){
-    socket.send(data);//받은 메시지를 그대로 다시 전송한다
+    //BroadCasting...
+    for(var i=0;i<socketArray.length;i++){
+      socketArray[i].send(data);//받은 메시지를 그대로 다시 전송한다
+    }
   });
+  
 });
 
 
