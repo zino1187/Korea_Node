@@ -37,7 +37,7 @@ app.use('/board', boardRouter);  // http://~~~~:7777/board
 
 //웹소켓 요청 처리 
 var wserver = new WebSocket.Server({port:9999});
-var socketArray=[]; //접속자마다 대응되는 소켓을 배열에 모아놓자
+global.socketArray=[]; //접속자마다 대응되는 소켓을 배열에 모아놓자
 
 //접속자 감지!!
 wserver.on("connection", function(socket){
