@@ -30,8 +30,10 @@ router.get('/', function(request, response, next) {
       response.end(JSON.stringify(message));
     }else{
       response.writeHead(200, {"Content-Type":"application/json;charset=utf-8'"});
+      message.requestCode="read";
       message.resultCode=200;
       message.data=result;
+      message.msg="목록가져오기 성공";
       response.end(JSON.stringify(message));
     }
     con.end();//접속끊기
@@ -51,8 +53,10 @@ router.get('/:board_id', function(request, response, next) {
       response.end(JSON.stringify(message));
     }else{
       response.writeHead(200, {"Content-Type":"application/json;charset=utf-8'"});
+      message.requestCode="read";
       message.resultCode=200;
       message.data=result;
+      message.msg="한건 가져오기 성공";
       response.end(JSON.stringify(message));
     }
     con.end();//접속끊기
@@ -76,8 +80,10 @@ router.post('/', function(request, response, next) {
       response.end(JSON.stringify(message));
     }else{
       response.writeHead(200, {"Content-Type":"application/json;charset=utf-8'"});
+      message.requestCode="create";
       message.resultCode=200;
-      message.msg="등록 성공";
+      message.data=result;
+      message.msg="등록하기 성공";
       response.end(JSON.stringify(message));
 
       //새로운 글이 등록되었음을, 접속한 모든 클라이언트에게 브로드케스팅 하자!!
@@ -108,8 +114,10 @@ router.put('/', function(request, response, next) {
       response.end(JSON.stringify(message));
     }else{
       response.writeHead(200, {"Content-Type":"application/json;charset=utf-8'"});
+      message.requestCode="update";
       message.resultCode=200;
-      message.msg="수정 성공";
+      message.data=result;
+      message.msg="수정하기 성공";
       response.end(JSON.stringify(message));
     }
     con.end();//접속끊기
@@ -131,8 +139,11 @@ router.delete('/:board_id', function(request, response, next) {
       response.end(JSON.stringify(message));
     }else{
       response.writeHead(200, {"Content-Type":"application/json;charset=utf-8'"});
+      message.requestCode="delete";
       message.resultCode=200;
-      message.msg="삭제 성공";
+      message.data=result;
+      message.msg="삭제하기 성공";
+
       response.end(JSON.stringify(message));
     }
     con.end();//접속끊기
