@@ -42,12 +42,14 @@ global.socketArray=[]; //접속자마다 대응되는 소켓을 배열에 모아
 //접속자 감지!!
 wserver.on("connection", function(socket){
   console.log("접속자 감지!!");
+
   socketArray.push(socket);
 
   //클라이언트에게 메시지 전송하기!!
   //socket.send("접속을 축하드립니다.");
   //클라이언트가 보낸 메시지 청취 이벤트 
   socket.on("message", function(data){
+    console.log("클라이언트 메시지", data);
     //BroadCasting...
     for(var i=0;i<socketArray.length;i++){
       socketArray[i].send(data);//받은 메시지를 그대로 다시 전송한다
