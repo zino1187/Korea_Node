@@ -10,6 +10,12 @@ var conStr={
   database:"android"
 };
 
+//모든 클라이언트에게 브로드 케스팅 
+function broadCasting(message){
+  for(var i=0;i<socketArray.length;i++){
+    socketArray[i].send(JSON.stringify(message));
+  }      
+};
 
 //목록 가져오기
 router.get('/', function(request, response, next) {
@@ -73,6 +79,12 @@ router.post('/', function(request, response, next) {
       message.resultCode=200;
       message.msg="등록 성공";
       response.end(JSON.stringify(message));
+
+      //새로운 글이 등록되었음을, 접속한 모든 클라이언트에게 브로드케스팅 하자!!
+      message.requestCode="create";//글 등록이 발생했을을 알려줌..
+      message.resultCode=200;
+      message.msg="새로운 글 등록";
+      broadCasting(message);
     }
     con.end();//접속끊기
   });
