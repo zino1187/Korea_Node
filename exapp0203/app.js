@@ -43,7 +43,18 @@ wserver.on("connection",  function(socket){
   //대화용 소켓으로 메시지 주고 받기!!
   socket.on("message", function(data){
     console.log("클라이언트 메시지 도착!",  data);
-
+    
+    //클라이언트의 메시지 프로토콜 분석 
+    var json = JSON.parse(data);
+    if(json.requestCode=="create"){ //글쓰기 요청이면..
+       //가공할 작업있으면 여기서.. 
+    }else if(json.requestCode=="read"){
+      //가공할 작업있으면 여기서.. 
+    }else if(json.requestCode=="update"){
+      //가공할 작업있으면 여기서.. 
+    }else if(json.requestCode=="delete"){
+      //가공할 작업있으면 여기서.. 
+    }
     //도착한 메시지를 다시 보내기!!(echo) , 단 대상은 모든 접속자에게!!(브로드케스팅)
     for(var i=0;i<socketArray.length;i++){
       socketArray[i].send(data);
