@@ -10,7 +10,8 @@ var conStr={
   database:"android"
 };
 
-//목록
+
+//목록 가져오기
 router.get('/', function(request, response, next) {
   var con = mysql.createConnection(conStr);
   var sql="select * from board order by board_id desc";
